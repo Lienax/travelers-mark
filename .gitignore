@@ -1,5 +1,12 @@
+# Environment
+.env
+
 # Visual Studio
 [Bb]in/
 [Oo]bj/
 .vs/
 *.user
+
+# Postgres: Ignore files except templates
+postgres/*
+!postgres/*.example
