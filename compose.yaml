@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:16
     container_name: postgres
-    restart: always
+    restart: unless-stopped
     # get value from .env when value is empty
     environment:
       POSTGRES_USER_FILE: /run/secrets/postgres-user
@@ -16,10 +16,16 @@ services:
       - postgres-user
       - postgres-password
       - postgres-db
+    healthcheck:
+      test: ["CMD-SHELL", "psql -U $$(cat /run/secrets/postgres-user) -d $$(cat /run/secrets/postgres-db) -c 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
   seq:
     image: datalust/seq:2025.2
     container_name: seq
-    restart: always
+    restart: unless-stopped
     environment:
       ACCEPT_EULA: Y
       SEQ_FIRSTRUN_ADMINUSERNAME:
@@ -33,11 +39,14 @@ services:
       context: ./backend
       dockerfile: src/Api/Dockerfile
     container_name: backend
+    restart: unless-stopped
     ports:
       - "5000:8080"
     depends_on:
-      - postgres
-      - seq
+      postgres:
+        condition: service_healthy
+      seq:
+        condition: service_started
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
 volumes:
