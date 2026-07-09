@@ -6,6 +6,7 @@
 [Oo]bj/
 .vs/
 *.user
+appsettings.Secrets.json
 
 # Postgres: Ignore files except templates
 postgres/*

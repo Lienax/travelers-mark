@@ -49,6 +49,8 @@ services:
         condition: service_started
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    secrets:
+      - appsettings.Secrets.json
 volumes:
   postgres-data:
   seq-data:
@@ -59,3 +61,5 @@ secrets:
     file: ./postgres/postgres_password.txt
   postgres-db:
     file: ./postgres/postgres_db.txt
+  appsettings.Secrets.json:
+    file: ./backend/src/Api/appsettings.Secrets.json

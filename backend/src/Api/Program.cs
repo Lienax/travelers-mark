@@ -1,5 +1,9 @@
+using Api;
+using Application;
+using Infrastructure;
+using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Serilog.Sinks.Seq;
 
 // Set up a bootstrap logger to capture early logs before the full configuration is loaded
 Log.Logger = new LoggerConfiguration()
@@ -34,6 +38,11 @@ try
     {
         options.LowercaseUrls = true;
     });
+    
+    builder.Configuration.AddJsonFile("/run/secrets/appsettings.Secrets.json", true, true);
+
+    builder.Services.AddApplicationServices();
+    builder.Services.AddInfrastructureServices(builder.Configuration);
 
     var app = builder.Build();
 
@@ -43,6 +52,8 @@ try
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.UseMiddleware<ExceptionHandlingMiddleware>();
 
     app.UseHttpsRedirection();
 
