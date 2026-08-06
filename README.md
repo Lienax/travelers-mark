@@ -2,6 +2,10 @@
 
 A full-stack project featuring a React with Vite frontend and a containerized .NET 8 Web API backend, supported by PostgreSQL and Seq.
 
+## Screenshot
+
+<img width="1920" height="955" alt="image" src="https://github.com/user-attachments/assets/f75c5182-93ca-45d4-9598-718acb40ef17" />
+
 ## Prerequisites
 
 - Docker Desktop installed and running.
