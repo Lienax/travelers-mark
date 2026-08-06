@@ -8,6 +8,9 @@
 *.user
 appsettings.Secrets.json
 
+#VS Code
+.vscode/
+
 # Postgres: Ignore files except templates
 postgres/*
 !postgres/*.example

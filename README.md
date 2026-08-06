@@ -1,10 +1,11 @@
 # Travelers Mark
 
-A containerized backend project using .NET 8 Web API, PostgreSQL, and Seq.
+A full-stack project featuring a React with Vite frontend and a containerized .NET 8 Web API backend, supported by PostgreSQL and Seq.
 
 ## Prerequisites
 
 - Docker Desktop installed and running.
+- Node.js (LTS version recommended) installed for running the frontend.
 
 ## Configuration
 
@@ -84,17 +85,31 @@ Open the newly created `appsettings.Secrets.json` and define the following secre
 
 ## Getting Started
 
-Once the configuration files are initialized, launch the project using Docker Compose:
+### 1. Launch Backend Services
+
+Once the configuration files are initialized, launch the containerized backend, database, and log services using Docker Compose:
 
 ```bash
 docker compose -p travelers-mark up -d
 ```
 
-Once running, you can access the services at the following URLs:
+### 2. Run Frontend Development Server
 
-**Seq Dashboard**: `http://localhost:5341`
+Navigate to the frontend directory, install dependencies, and start the local development server:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Once everything is running, you can access the services at the following URLs:
+
+**Frontend App**: `http://localhost:5173`
 
 **Backend API**: `http://localhost:5000`
+
+**Seq Dashboard**: `http://localhost:5341`
 
 ## Stopping the Project
 
@@ -114,3 +129,7 @@ The backend utilizes a Vertical Slice Architecture (VSA) to process incoming tra
 - **Response Flow**: `Response` bubbles back up through the same layers in reverse order (`Handler` ➔ `Pipeline` ➔ `Controller` ➔ `Middleware`)
 
 This structure ensures that cross-cutting concerns (such as FluentValidation) are decoupled from the core business logic handled within individual vertical slices.
+
+## Credits
+
+- Illustrations: [かわいいフリー素材集 いらすとや](https://www.irasutoya.com/)

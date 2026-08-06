@@ -30,7 +30,7 @@ public class ExceptionHandlingMiddleware
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = 500;
 
-        var response = new { error = exception.Message };
+        var response = new { description = exception.Message };
         return context.Response.WriteAsJsonAsync(response);
     }
 }

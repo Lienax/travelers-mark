@@ -25,10 +25,6 @@ public class LocalLoginCommandValidator : AbstractValidator<LocalLoginCommand>
             .WithErrorCode(DomainErrors.Password.Empty.Description)
             .WithMessage(DomainErrors.Password.Empty.Code)
 
-            .MinimumLength(8)
-            .WithErrorCode(DomainErrors.Password.TooShort.Code)
-            .WithMessage(DomainErrors.Password.TooShort.Description)
-
             .MaximumLength(72)
             .WithErrorCode(DomainErrors.Password.TooLong.Code)
             .WithMessage(DomainErrors.Password.TooLong.Description);

@@ -38,13 +38,27 @@ try
     {
         options.LowercaseUrls = true;
     });
-    
+
     builder.Configuration.AddJsonFile("/run/secrets/appsettings.Secrets.json", true, true);
 
     builder.Services.AddApplicationServices();
     builder.Services.AddInfrastructureServices(builder.Configuration);
 
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("Frontend",
+            policy =>
+            {
+                policy.WithOrigins("http://localhost:5173")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+            });
+    });
+
     var app = builder.Build();
+
+    app.UseCors("Frontend");
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
